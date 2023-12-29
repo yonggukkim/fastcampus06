@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,6 +25,63 @@ class Body extends StatelessWidget {
         TestRadioButton(),
         TestSlider(),
         TestSwitch(),
+        TestPopupMenu(),
+      ],
+    );
+  }
+}
+
+class TestPopupMenu extends StatefulWidget {
+  const TestPopupMenu({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _TestPopupState();
+}
+
+class _TestPopupState extends State<TestSwitch> {
+  TestTestValue selectValue = TestTestValue.test1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(selectValue.name),
+        PopupMenuButton(
+          itemBuilder: (context) {
+            return TestTestValue.values
+                .map((value) =>
+                    PopupMenuItem(value: value, child: Text(value.name)))
+                .toList();
+          },
+          onSelected: (newValue) => setState(() => selectValue = newValue),
+        ),
+      ],
+    );
+  }
+}
+
+class TestSwitch extends StatefulWidget {
+  const TestSwitch({super.key});
+
+  @override
+  State<TestSwitch> createState() => _TestSwitchState();
+}
+
+class _TestSwitchState extends State<TestSwitch> {
+  bool value = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Switch(
+          value: value,
+          onChanged: (newValue) => setState(() => value = newValue),
+        ),
+        CupertinoSwitch(
+          value: value,
+          onChanged: (newValue) => setState(() => value = newValue),
+        ),
       ],
     );
   }
@@ -98,7 +156,7 @@ class _TestCheckBoxState extends State<TestCheckBox> {
   }
 }
 
-enum TestRadioValue {
+enum TestTestValue {
   test1,
   test2,
   test3,
@@ -112,45 +170,45 @@ class TestRadioButton extends StatefulWidget {
 }
 
 class _TestRadioButtonState extends State<TestRadioButton> {
-  TestRadioValue? selectValue;
+  TestTestValue? selectValue;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ListTile(
-          leading: Radio<TestRadioValue>(
-              value: TestRadioValue.test1,
+          leading: Radio<TestTestValue>(
+              value: TestTestValue.test1,
               groupValue: selectValue,
               onChanged: (value) => setState(() => selectValue = value!)),
-          title: Text(TestRadioValue.test1.name),
+          title: Text(TestTestValue.test1.name),
           onTap: () => setState(() {
-            if (selectValue != TestRadioValue.test1) {
-              selectValue = TestRadioValue.test1;
+            if (selectValue != TestTestValue.test1) {
+              selectValue = TestTestValue.test1;
             }
           }),
         ),
         ListTile(
-          leading: Radio<TestRadioValue>(
-              value: TestRadioValue.test2,
+          leading: Radio<TestTestValue>(
+              value: TestTestValue.test2,
               groupValue: selectValue,
               onChanged: (value) => setState(() => selectValue = value!)),
-          title: Text(TestRadioValue.test2.name),
+          title: Text(TestTestValue.test2.name),
           onTap: () => setState(() {
-            if (selectValue != TestRadioValue.test2) {
-              selectValue = TestRadioValue.test2;
+            if (selectValue != TestTestValue.test2) {
+              selectValue = TestTestValue.test2;
             }
           }),
         ),
         ListTile(
-          leading: Radio<TestRadioValue>(
-              value: TestRadioValue.test3,
+          leading: Radio<TestTestValue>(
+              value: TestTestValue.test3,
               groupValue: selectValue,
               onChanged: (value) => setState(() => selectValue = value!)),
-          title: Text(TestRadioValue.test3.name),
+          title: Text(TestTestValue.test3.name),
           onTap: () => setState(() {
-            if (selectValue != TestRadioValue.test3) {
-              selectValue = TestRadioValue.test3;
+            if (selectValue != TestTestValue.test3) {
+              selectValue = TestTestValue.test3;
             }
           }),
         ),
